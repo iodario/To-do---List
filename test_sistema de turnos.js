@@ -4,12 +4,12 @@ const turno_agenda = [];
 let formulario = document.getElementById("formulario");
 
 class Persona {
-    constructor(nombre, apellido, email, edad, dni) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.edad = parseInt(edad);
-        this.dni = parseInt(dni);
+    constructor(literal) {
+        this.nombre = literal.nombre;
+        this.apellido = literal.apellido;
+        this.email = literal.email;
+        this.edad = literal.edad;
+        this.dni = literal.dni;
         
     }
     solicitar_datos_turno() {
@@ -22,42 +22,51 @@ class Persona {
 formulario.onsubmit = (e) => {
 
     e.preventDefault();
-    const inputs = e.target.children;
+    const inputs = e.target;
     personas.push
       (new
         Persona({ nombre: inputs[0].value, apellido: inputs[1].value,  email: inputs[2].value, edad: inputs[3].value,  dni: inputs[4].value }));
     
-    // mostrarEstudiantes(estudiantes);
-    // const btnEstudiantes = document.getElementsByClassName('btnEstudiante');
-    // for (const boton of btnEstudiantes) {
-    //   boton.onclick = (e) => {
-    //     const seleccionado = estudiantes.find(obj => obj.id == e.target.id);
-    //     let notificacion = document.createElement("h6");
-    //     notificacion.innerHTML = `Nombre ${seleccionado.nombre} -
-    // Edad ${seleccionado.edad}`;
-    //     salida.prepend(notificacion);
-    //     salida.prepend(notificacion);
-//       }
-//     }
-
-alert(inputs[0].value);
-
+    mostrarPersonas(personas);  
+    alert("turno reservado con exito");
    }
   
   
-  function mostrarEstudiantes(estudiantes) {
-    salida.innerHTML = '';
-    for (const estudiante of estudiantes) {
-    let divEstudiante = document.createElement("div");
-    divEstudiante.innerHTML = `<h2>${estudiante.nombre}</h2>
-    <p>${estudiante.edad} / ${estudiante.curso} </p>
-    <button id='${estudiante.id}' class='btnEstudiante'>Seleccionar</button>`
-    salida.appendChild(divEstudiante);
+  function mostrarPersonas(personas) {
+      
+    salida.innerHTML = `
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Email</th>
+      <th scope="col">Edad</th>
+      <th scope="col">Dni</th>
+    </tr>
+  </thead>  
+ 
+    `;
+
+    for (const persona of personas) {
+    let divPersona = document.createElement("tr");
+    divPersona.innerHTML = `
+  
+    <th scope="row">${persona.nombre}</th>
+    <td>${persona.apellido}</td>
+    <td>${persona.email}</td>
+    <td>${persona.edad}</td>
+    <td>${persona.dni}</td>
+  `
+ 
+
+    salida.appendChild(divPersona);
     }
     }
     const salida = document.createElement("div");
     document.body.appendChild(formulario);
     document.body.appendChild(salida);
   
+
   
   
